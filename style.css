@@ -1,0 +1,47 @@
+:root {
+    --header-bg: #4a6f8b;
+    --body-bg: #4a6f8b; /* ICI POUR TOUT CHANGER EN WHITE*/
+    --text-color: rgb(255, 255, 255); 
+    --title-color: #fff;
+    --subtitle-color: #f8f8f8;
+    --main-bg: ;
+    --footer-bg: rgb(64, 103, 133);
+
+  }
+
+.dark-theme {
+    --header-bg: #04121C;
+    --body-bg: #04121C; /* ICI POUR TOUT CHANGER EN DARK*/
+    --text-color: rgb(216, 216, 216); 
+    --title-color: white;
+    --subtitle-color: #e7e7e7;
+    --main-bg: ;
+    --footer-bg: rgb(4, 14, 22);
+
+  }
+
+.dark-theme img {
+    filter: brightness(2);
+    filter: invert(1);
+}
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.no-link-style { /* Enlève le style de lien pour le titre principal */
+    color: inherit; 
+    text-decoration: inherit; 
+}
+
+.center {
+    display: block;
+    width: 50%; /* adjust as needed */
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid #000; /* adjust as needed */
+    border-radius: 10px; /* adjust for rounded corners */
+    padding: 20px; /* space inside the border */
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* optional: add some shadow for a modern look */
+}
