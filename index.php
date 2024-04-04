@@ -12,7 +12,9 @@
     <?php //require_once(__DIR__ . '/inclus/header.php'); ?>
 
     <main>
+        <div class="center">
         <h1>Bienvenue sur ChadSport ! </h1>
+</div>
     </main>
 
     <?php require_once(__DIR__ . '/include/footer.php'); ?>
