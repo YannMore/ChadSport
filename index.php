@@ -1,3 +1,10 @@
+<?php if(session_status() !== PHP_SESSION_ACTIVE) {
+        session_start();
+    }
+
+    ?>
+
+<!DOCTYPE html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,14 +16,17 @@
 </head>
 
 <body>
-    <?php //require_once(__DIR__ . '/inclus/header.php'); ?>
+    <?php require_once(__DIR__ . '/include/header.php'); ?>
+    <?php require_once(__DIR__ . '/include/est_banni.php');?>
 
     <main>
         <div class="center">
-        <h1>Bienvenue sur ChadSport ! </h1>
+        <h1><?php require_once(__DIR__ . '/include/quote.php');?> </h1>
 </div>
+<?php require_once(__DIR__ . '/afficher_post.php'); ?>
     </main>
 
     <?php require_once(__DIR__ . '/include/footer.php'); ?>
+
 
 </html>

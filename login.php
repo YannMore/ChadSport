@@ -1,90 +1,64 @@
-
-
 <?php
 session_set_cookie_params([
     'secure' => true,
     'httponly' => true,
     'samesite' => 'Strict',
-]);
+]);?>
 
-session_start();
+<?php 
+    session_start();
+?>
 
+<?php 
 // Genere le cookie
 if (empty($_SESSION['csrf_token'])) {
     $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
 }
 
-$postData = $_POST;
+$postData = $_POST;?>
 
-$users = [
-    [
-        "email" => "root@mail.com",
-        "password" => password_hash("password", PASSWORD_DEFAULT) // A Changer avec db
-    ]
-];?>
+<?php require_once(__DIR__ . '/include/fonctions.php'); ?>
+<?php require_once(__DIR__ . '/include/db_config.php'); ?>
 
-<?php require_once(__DIR__.'/inclus/script_darkmode1.php')?>
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="Documentation" content="">
-    <meta name="Keywords" content="">
-    <link href="style.css" rel="stylesheet">
-    <link rel="icon" href="./favicon.ico" type="image/ico">
-    <title>Connexion</title>
-</head>
-
-<body>
-        <?php //require_once(__DIR__ . '/inclus/header.php'); ?>
-
-        <?php //require_once(__DIR__.'/inclus/script_darkmode2.php')?>
-
-
-
-        <div class="page-content-wave">
-        <main>
-
-    
-
-
-</html>
 
 <?php
 if (isset($postData['email']) &&  isset($postData['password'])) {
     if (!filter_var($postData['email'], FILTER_VALIDATE_EMAIL)) {
         $errorMessage = '<h1>Il faut un email valide pour soumettre le formulaire.</h1>';
     } else {
-        foreach ($users as $user) {
-            if (
-                $user['email'] === $postData['email'] &&
-                password_verify($postData['password'], $user['password']) // Verify the password
-            ) {
-                $_SESSION['loginUsername'] = $user['email'];
-                header("Location: ./inclus/showData.php"); // Redirect to logged.php
-                exit;
-            }
-        }
 
-        if (!isset($_SESSION['loginUsername'])) {
-            $errorMessage = sprintf(
-                'Les informations envoyées ne permettent pas de vous identifier : (%s/%s)',
-                $postData['email'],
-                strip_tags($postData['password'])
-            );
+        $sqlQuery = "SELECT * FROM membre WHERE email = :email";
+        $query = $mysqlClient->prepare($sqlQuery);
+        $query->bindParam(':email', $postData['email']);
+        $query->execute();
+        $user = $query->fetch(PDO::FETCH_ASSOC);
+
+        //true si user existe et true si mdp valide
+        //if ($user && password_verify($postData['password'], $user['mot_de_passe'])) {   Ne fonctionne pas car passwords pas hash
+            if ($user && $postData['password'] === $user['mot_de_passe']) {
+                // Variables de session
+                $_SESSION['id_membre'] = $user['Id_Membre'];//attention MAJUSCULES m'ont fait perdre 40mn
+                $_SESSION['pseudo'] = $user['pseudo'];
+                $_SESSION['administrateur'] = $user['administrateur'];
+
+            //Redirection page accueil
+            header("Location: index.php");
+            exit();
+        } else {
+            //Si mdp ou email invalide
+            $error_message = 'Les informations envoyées ne permettent pas de vous identifier.';
         }
     }
 }
 ?>
 
-<!-- Add CSRF token to your form -->
-<form action="login.php" method="POST">
+
+<!--Rajoute le token csrf-->
+<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
     <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
-    <?php if (isset($errorMessage)) : ?>
-            <div class="alert alert-danger" role="alert">
-                <?php echo $errorMessage; ?>
-            </div>
-        <?php endif; ?>
+    <?php if(isset($error_message)) { ?>
+        <p><?php echo $error_message; ?></p>
+    <?php } ?>
 
     <div class="mb-3">
         <label for="email" class="form-labl">Email</label>   
@@ -102,14 +76,17 @@ if (isset($postData['email']) &&  isset($postData['password'])) {
 
         </main>
 
-        <?php require_once(__DIR__ . '/inclus/footer.php'); ?>
+        <?php require_once(__DIR__ . '/include/footer.php'); ?>
 
     </div>
 </body>
 
-<!-- Check CSRF token when form is submitted -->
+<!-- verif du csrf -->
 <?php
 if (isset($_POST['csrf_token']) && $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
-    die('Invalid CSRF token');
+    die('CSRF INVALIDE');
 }
 ?>
+
+
+</html>

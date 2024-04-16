@@ -45,3 +45,42 @@
     padding: 20px; /* space inside the border */
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* optional: add some shadow for a modern look */
 }
+
+header{
+    background-color: black;
+    color: white;
+    position: sticky;
+    top: 0;
+    display: flex;
+    align-items: center;
+}
+
+.header-img {
+    width: 50px;
+    height: 50px;
+    background-color: red;
+    margin: 10px;
+}
+nav {
+    display: flex;
+    padding: 1rem 2rem;
+  }
+
+li {
+    list-style: none;
+    display: inline;
+    padding: 0 53px;
+    font-size: 33px;
+  }
+
+
+  .comment-profile {
+    width: 100%;
+    height: auto;
+    max-width: 50px;
+}
+.post-picture{
+    width: 100%;
+    height: auto;
+    max-width: 500px;
+}
