@@ -17,6 +17,7 @@
 
 <body>
     <?php require_once(__DIR__ . '/include/header.php'); ?>
+    
     <?php require_once(__DIR__ . '/include/est_banni.php');?>
 
     <main>
@@ -27,6 +28,6 @@
     </main>
 
     <?php require_once(__DIR__ . '/include/footer.php'); ?>
-
+    <?php require_once(__DIR__ . '/include/garder_defillement.php');?>
 
 </html>

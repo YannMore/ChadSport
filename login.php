@@ -10,7 +10,7 @@ session_set_cookie_params([
 ?>
 
 <?php 
-// Genere le cookie
+// Genere le cookie csrf
 if (empty($_SESSION['csrf_token'])) {
     $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
 }
@@ -36,25 +36,32 @@ if (isset($postData['email']) &&  isset($postData['password'])) {
         //true si user existe et true si mdp valide
         //if ($user && password_verify($postData['password'], $user['mot_de_passe'])) {   Ne fonctionne pas car passwords pas hash
             if ($user && $postData['password'] === $user['mot_de_passe']) {
-                // Variables de session
+                // variables de session
                 $_SESSION['id_membre'] = $user['Id_Membre'];//attention MAJUSCULES m'ont fait perdre 40mn
                 $_SESSION['pseudo'] = $user['pseudo'];
                 $_SESSION['administrateur'] = $user['administrateur'];
 
-            //Redirection page accueil
-            header("Location: index.php");
-            exit();
+                
+                if (isset($_GET['redirection'])) {
+                    header("Location: " . urldecode($_GET['redirection']));
+                } else {
+                    // sinon page par defaut
+                    header("Location: index.php");
+                }
+                exit();
+                
         } else {
             //Si mdp ou email invalide
             $error_message = 'Les informations envoyées ne permettent pas de vous identifier.';
-        }
+        }   
     }
 }
 ?>
 
 
-<!--Rajoute le token csrf-->
-<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+<!--Action Redirige vers la page précédente ou plutot celle passée en param-->
+<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?><?php echo isset($_GET['redirection']) ? '?redirection=' . $_GET['redirection'] : ''; ?>">
+    <!--Rajoute le token csrf-->
     <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
     <?php if(isset($error_message)) { ?>
         <p><?php echo $error_message; ?></p>
@@ -63,6 +70,7 @@ if (isset($postData['email']) &&  isset($postData['password'])) {
     <div class="mb-3">
         <label for="email" class="form-labl">Email</label>   
         <input type="email" class="form-control" id="email" name="email">
+        
     </div>
 
     <div class="mb-3">
@@ -73,7 +81,9 @@ if (isset($postData['email']) &&  isset($postData['password'])) {
     <button type="submit" class="bouton">Connexion</button>
 
 </form>
-
+<div class="register">
+<a href ='register.php'>Vous n'avez pas de compte ? Inscrivez-vous</a>
+    </div>
         </main>
 
         <?php require_once(__DIR__ . '/include/footer.php'); ?>

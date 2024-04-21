@@ -122,6 +122,25 @@ $informations = $query->fetch(PDO::FETCH_ASSOC);
             <button type="submit" class="form-submit">Mettre à jour</button>
         </form>
 
+
+    <div class="amis">
+        <h2> Vos abonnements</h2>
+        <?php 
+        
+        $sqlQuery = "SELECT * FROM est_abonne WHERE Id_Membre = :id_membre";
+
+        $query = $mysqlClient->prepare($sqlQuery);
+        $query->bindParam(':id_membre', $_SESSION['id_membre']);
+        $query->execute();
+        $abonnement = $query->fetchall(PDO::FETCH_ASSOC);
+        echo $abonnement['name']."<a href ='unsubscribe.php?'"."lien";
+        ?>
+
+
+
+
+
+    </div>    
     </center>
 
     <?php require_once(__DIR__ . '/include/footer.php'); ?>

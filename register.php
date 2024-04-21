@@ -96,9 +96,13 @@ if (isset($postData['email']) && isset($postData['password']) && isset($postData
 
 </main>
 
-<?php require_once(__DIR__ . '/include/footer.php'); ?>
+
 
 </div>
+<div class ="register">
+    <a href ='login.php'>Vous déjà avez un compte ? Connectez-vous</a>
+</div>
+<?php require_once(__DIR__ . '/include/footer.php'); ?>
 </body>
 
 <!-- Verify the CSRF token -->

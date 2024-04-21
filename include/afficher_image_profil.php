@@ -13,5 +13,6 @@
             $profilePic = $defaultPic;
         }
     }
+
+/*<a href='profil.php'> <img class="comment-profile" src="<?php echo $profilePic; ?>" alt="photo de profil d'un membre"/></a>*/
 ?>
-<a href='profil.php'> <img class="comment-profile" src="<?php echo $profilePic; ?>" alt="photo de profil d'un membre"/></a>
