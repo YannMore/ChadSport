@@ -9,21 +9,32 @@ $Id_Post = filter_var($_GET['post'], FILTER_SANITIZE_STRING);
 //Partie commentaire
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     require_once(__DIR__ . '/include/verif_connexion.php'); 
+    $Id_Post = filter_var($_POST['Id_Post'], FILTER_SANITIZE_STRING);
     $content = filter_var($_POST['content'], FILTER_SANITIZE_STRING);
-    $Commentaire_Id_Post = filter_var($_POST['Commentaire_Id_Post'], FILTER_SANITIZE_STRING);
-    if (empty($content)) {
-        //$error = 'Le texte de ton Commentaire est vide';
-    } elseif (strlen($content) > 200) {
-        //$error = 'Le texte est trop long, soit plus concis';
-    } else {
-        $query = $mysqlClient->prepare("INSERT INTO commentaire (contenu_commentaire, Id_Post, Id_Membre, date_commentaire) VALUES (?, ?, ?, NOW())");
-        $query->execute([$content, $Commentaire_Id_Post, $_SESSION['id_membre']]);
-       
-        header('Location: index.php');//va poser des problemes de scroll mais obligatoire pour pas envoyer com a chaque f5
-        exit;
+    $comment = filter_var($_POST['comment'], FILTER_SANITIZE_STRING);
+    if ($comment) {
+        if (empty($content)) {
+            $error = '<div class="erreur">Le texte de ton Commentaire est vide</div>';
+            echo $error;
+        } else if (strlen($content) > 200) {
+            $error = '<div class="erreur">Le texte est trop long, soit plus concis</div>';
+            echo $error;
+        }
+         else {
+            $query = $mysqlClient->prepare("INSERT INTO commentaire (contenu_commentaire, Id_Post, Id_Membre, date_commentaire) VALUES (?, ?, ?, NOW())");
+            $query->execute([$content, $Id_Post, $_SESSION['id_membre']]);
+            header('Location: index.php');
+            exit;
         }
     }
-
+    if (!empty($_POST['suivre'])) {
+        $suivre = filter_var($_POST['suivre'], FILTER_SANITIZE_STRING);
+        $query = $mysqlClient->prepare("INSERT IGNORE INTO est_abonne (Id_Membre, Id_Membre_1, date_ajout) VALUES (?, ?, NOW())");
+        $query->execute([$_SESSION['id_membre'], $suivre]);
+        header('Location: index.php');
+        exit;
+        }
+}
 //FIN COMMENTAIRE
 
 
@@ -87,7 +98,13 @@ $pseudomembre = getPseudoById($post['Id_Membre'], $mysqlClient); ?>
         <fieldset>
             <legend>
                   <?php
-                      $profilePic = 'images/profiles/'.$post['Id_Membre'].'.png';
+                  $sqlQuery = "SELECT image_profil FROM membre WHERE Id_Membre = :id_comment"; //serait pas mal de faire de la mise en cache image ou qlq chose mais dans notre echelle pas prblm performance
+                  $extensionQuery = $mysqlClient->prepare($sqlQuery);
+                  $extensionQuery->bindParam(':id_comment',$comment['Id_Membre']);
+                  $extensionQuery->execute();
+                  $result = $extensionQuery->fetch(PDO::FETCH_ASSOC);
+
+                     $profilePic = 'images/profiles/'.$comment['Id_Membre'].'.'.$result["image_profil"];
                      $defaultPic = 'images/profiles/defaut.png'; // Image par defaut si pas profil
 
                        if (!file_exists($profilePic)) {
@@ -103,10 +120,10 @@ $pseudomembre = getPseudoById($post['Id_Membre'], $mysqlClient); ?>
     <form method="POST" enctype="multipart/form-data">
     <label for="content">Ajouter un commentaire:</label><br>
     <textarea id="content" name="content" maxlength="200"></textarea><br>
-    <input type="hidden" name="Commentaire_Id_Post" value="<?php echo $post['Id_Post']; ?>">
+    <input type="hidden" name="comment" value="True"> 
+    <input type="hidden" name="Id_Post" value="<?php echo $post['Id_Post']; ?>">
     <input type="submit" value="Envoyer">
     </form>
-    <br>
  
 
 

@@ -20,25 +20,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     require_once(__DIR__ . '/include/verif_connexion.php'); 
     $Id_Post = filter_var($_POST['Id_Post'], FILTER_SANITIZE_STRING);
     $content = filter_var($_POST['content'], FILTER_SANITIZE_STRING);
-
-    if (empty($content)) {
-        $error = '<div class="erreur">Le texte de ton Commentaire est vide</div>';
-        echo $error;
-    } else if (strlen($content) > 200) {
-        $error = '<div class="erreur">Le texte est trop long, soit plus concis</div>';
-        echo $error;
-    } else if (!empty($_POST['suivre'])) {
+    $comment = filter_var($_POST['comment'], FILTER_SANITIZE_STRING);
+    if ($comment) {
+        if (empty($content)) {
+            $error = '<div class="erreur">Le texte de ton Commentaire est vide</div>';
+            echo $error;
+        } else if (strlen($content) > 200) {
+            $error = '<div class="erreur">Le texte est trop long, soit plus concis</div>';
+            echo $error;
+        }
+         else {
+            $query = $mysqlClient->prepare("INSERT INTO commentaire (contenu_commentaire, Id_Post, Id_Membre, date_commentaire) VALUES (?, ?, ?, NOW())");
+            $query->execute([$content, $Id_Post, $_SESSION['id_membre']]);
+            header('Location: index.php');
+            exit;
+        }
+    }
+    if (!empty($_POST['suivre'])) {
         $suivre = filter_var($_POST['suivre'], FILTER_SANITIZE_STRING);
         $query = $mysqlClient->prepare("INSERT IGNORE INTO est_abonne (Id_Membre, Id_Membre_1, date_ajout) VALUES (?, ?, NOW())");
         $query->execute([$_SESSION['id_membre'], $suivre]);
         header('Location: index.php');
         exit;
-    } else {
-        $query = $mysqlClient->prepare("INSERT INTO commentaire (contenu_commentaire, Id_Post, Id_Membre, date_commentaire) VALUES (?, ?, ?, NOW())");
-        $query->execute([$content, $Id_Post, $_SESSION['id_membre']]);
-        header('Location: index.php');
-        exit;
-    }
+        }
 }
 
 // Afficher les posts
@@ -143,6 +147,7 @@ $posts = $query->fetchALL(PDO::FETCH_ASSOC);
     <form method="POST" enctype="multipart/form-data">
     <label for="content">Ajouter un commentaire:</label><br>
     <textarea id="content" name="content" maxlength="200"></textarea><br>
+    <input type="hidden" name="comment" value="True"> 
     <input type="hidden" name="Id_Post" value="<?php echo $post['Id_Post']; ?>">
     <input type="submit" value="Envoyer">
     </form>
