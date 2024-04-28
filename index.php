@@ -22,7 +22,7 @@
 
     <main>
         <div class="center">
-        <h1><?php require_once(__DIR__ . '/include/quote.php');?> </h1>
+        
 </div>
 <?php require_once(__DIR__ . '/afficher_post.php'); ?>
     </main>

@@ -58,7 +58,7 @@ $posts = $query->fetchALL(PDO::FETCH_ASSOC);
 ?>
 
 <?php foreach ($posts as $post) { ?>
-    <fieldset>
+    <fieldset class="post">
         <legend>
         <?php   echo getPseudoById($post['Id_Membre'], $mysqlClient);
                 $base_url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]";
@@ -107,11 +107,11 @@ $posts = $query->fetchALL(PDO::FETCH_ASSOC);
 
         <img class="post-picture" src="<?php echo 'images/posts/'.$post['Id_Post'].'.'.$post['image_post'];?>" alt="image du post"/>
 
-    </fieldset>
+    
 
     <p class="post-text">
     <?php echo $post['contenu']; ?>
-
+    </fieldset>
     <?php
     // Récupère les commentaires
     $sqlQuery = "SELECT *  FROM commentaire WHERE Id_Post = :id_post
@@ -122,8 +122,7 @@ $posts = $query->fetchALL(PDO::FETCH_ASSOC);
     $comments = $commentQuery->fetchAll(PDO::FETCH_ASSOC);
 
     foreach ($comments as $comment) { ?>
-        <fieldset>
-            <legend>
+        <div class="comment">
                   <?php
                   $sqlQuery = "SELECT image_profil FROM membre WHERE Id_Membre = :id_comment"; //serait pas mal de faire de la mise en cache image ou qlq chose mais dans notre echelle pas prblm performance
                   $extensionQuery = $mysqlClient->prepare($sqlQuery);
@@ -139,9 +138,9 @@ $posts = $query->fetchALL(PDO::FETCH_ASSOC);
                                }?>
                      <img class="comment-profile" src="<?php echo $profilePic; ?>" alt="photo de profil d'un commentaire"/>
                       <?php echo getPseudoById($comment['Id_Membre'], $mysqlClient);?>
-            </legend>
+            
             <?php echo $comment['contenu_commentaire']; ?>
-        </fieldset>
+        </div>
     <?php } ?>
     
     <form method="POST" enctype="multipart/form-data">

@@ -95,8 +95,7 @@ $pseudomembre = getPseudoById($post['Id_Membre'], $mysqlClient); ?>
     $comments = $commentQuery->fetchAll(PDO::FETCH_ASSOC);
 
     foreach ($comments as $comment) { ?>
-        <fieldset>
-            <legend>
+        <div class="comment">
                   <?php
                   $sqlQuery = "SELECT image_profil FROM membre WHERE Id_Membre = :id_comment"; //serait pas mal de faire de la mise en cache image ou qlq chose mais dans notre echelle pas prblm performance
                   $extensionQuery = $mysqlClient->prepare($sqlQuery);
@@ -112,9 +111,9 @@ $pseudomembre = getPseudoById($post['Id_Membre'], $mysqlClient); ?>
                                }?>
                      <img class="comment-profile" src="<?php echo $profilePic; ?>" alt="photo de profil d'un commentaire"/>
                       <?php echo getPseudoById($comment['Id_Membre'], $mysqlClient);?>
-            </legend>
+
             <?php echo $comment['contenu_commentaire']; ?>
-        </fieldset>
+        </div>
     <?php } ?>
     
     <form method="POST" enctype="multipart/form-data">
