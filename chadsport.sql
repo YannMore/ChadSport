@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : dim. 21 avr. 2024 à 19:47
+-- Généré le : mar. 30 avr. 2024 à 22:03
 -- Version du serveur : 10.4.32-MariaDB
--- Version de PHP : 8.2.12
+-- Version de PHP : 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -142,7 +142,8 @@ INSERT INTO `commentaire` (`Id_Commentaire`, `date_commentaire`, `contenu_commen
 (28, '2024-04-21 19:34:28', '', 10, 1),
 (29, '2024-04-21 19:34:31', '', 10, 1),
 (30, '2024-04-21 19:34:33', '', 9, 1),
-(31, '2024-04-21 19:39:23', 'az', 11, 1);
+(31, '2024-04-21 19:39:23', 'az', 11, 1),
+(32, '2024-04-28 14:42:26', 'COmmentaire long COmmentaire long COmmentaire long COmmentaire long COmmentaire long COmmentaire long COmmentaire long COmmentaire long COmmentaire long COmmentaire long COmmentaire long COmmentaire l', 2, 1);
 
 -- --------------------------------------------------------
 
@@ -336,7 +337,7 @@ ALTER TABLE `annonce`
 -- AUTO_INCREMENT pour la table `commentaire`
 --
 ALTER TABLE `commentaire`
-  MODIFY `Id_Commentaire` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `Id_Commentaire` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT pour la table `membre`
