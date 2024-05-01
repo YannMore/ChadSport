@@ -13,9 +13,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
     if (empty($pseudo)) {
         $error = 'Il te faut un pseudo !';
-    } elseif (strlen($pseudo) > 30) {
+    } 
+    elseif (strlen($pseudo) > 30) {
         $error = 'Ton pseudo, il est trop long';
-    } else {
+    } 
+    else {
         $query = $mysqlClient->prepare("UPDATE membre SET pseudo = ? WHERE Id_Membre = ?");
         $query->execute([$pseudo, $_SESSION['id_membre']]);
 
@@ -64,9 +66,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;        
     }
     if (isset($_POST['Id_Membre_1'])) {
-        $Id_Membre_1 = filter_var($_POST['Id_Membre_1'], FILTER_SANITIZE_STRING);
         $query = $mysqlClient->prepare("DELETE FROM est_abonne WHERE Id_Membre = ? AND Id_Membre_1 = ?");
-        $query->execute([$_SESSION['id_membre'], $Id_Membre_1]);
+        $query->execute([$_SESSION['id_membre'], $_POST['Id_Membre_1']]);
+        header('Location: profil.php');
+        exit;
+    }
+    if (isset($_POST['id_sport'])){//encore perdu 13mn car ct _POST au lieu de POST :((((((
+        $query = $mysqlClient->prepare("DELETE FROM pratique WHERE Id_Membre = ? AND id_sport = ?");
+        $query->execute([$_SESSION['id_membre'], $_POST['id_sport']]);
         header('Location: profil.php');
         exit;
     }
@@ -169,11 +176,42 @@ $informations = $query->fetch(PDO::FETCH_ASSOC);
                 <br>
             <?php  }}?>
         
-
-
-
-
     </div>    
+    <br>
+    <br>
+    <h2>Vos sports :</h2>
+    <?php 
+
+        $sqlQuery = "SELECT sport.nom, sport.id_sport
+                    FROM pratique
+                    JOIN sport ON pratique.id_sport = sport.id_sport
+                    WHERE pratique.Id_Membre = :id_membre";
+
+        $query = $mysqlClient->prepare($sqlQuery);
+        $query->bindParam(':id_membre', $_SESSION['id_membre']);
+        $query->execute();
+        $sports = $query->fetchAll(PDO::FETCH_ASSOC);
+
+        if (empty($sports)) {
+            echo "<div class='pas_sport'>Oups! Il semble que vous ne pratiquez aucun sport. 
+                Cela ne plait pas à Chadsport. Rajoutez des sports à votre profil.
+                <img src='images/site/no_sport.png' />
+                </div>";
+        }
+        else {
+            foreach ($sports as $sport) {
+                echo $sport['nom'];
+                ?>
+                <form method="POST">
+                    <input type="hidden" name="id_sport" value="<?php echo $sport['id_sport']; ?>">
+                    <input type="submit" value="Je ne pratique plus">
+                </form>
+                <br>
+            <?php  }
+        }?>
+
+    <a href='ajouter_sport.php'><h2>Rajouter des sports</h2></a>
+    <br>
     </center>
 
     <?php require_once(__DIR__ . '/include/footer.php'); ?>
