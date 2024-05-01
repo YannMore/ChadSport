@@ -63,29 +63,18 @@ $posts = $query->fetchALL(PDO::FETCH_ASSOC);
         <?php   echo getPseudoById($post['Id_Membre'], $mysqlClient);
                 $base_url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]";
                 $path = pathinfo($_SERVER['REQUEST_URI'], PATHINFO_DIRNAME);
-                $url = $base_url . $path . "/post.php?post=" . $post['Id_Post'];
+                $url = $base_url . $path . "/post.php?post=" . $post['Id_Post']; //url fonctionne ok
                 ?>
-
+    
                 <!--Partie bouton partager-->
                 <div class="tooltip">
-                    <button onclick="myFunction()" onmouseout="outFunc()">
-                    <span class="tooltiptext" id="myTooltip">Cliquez pour copier</span>
+                    <button onclick="partager('<?php echo $url; ?>', '<?php echo $post['Id_Post']; ?>')" onmouseout="clique_partager('<?php echo $post['Id_Post']; ?>')">
+                    <span class="tooltiptext" id="myTooltip<?php echo $post['Id_Post']; ?>">Cliquez pour copier</span>
                     Partager
                     </button>
                 </div>
-                <script>
-                function myFunction() {
-                    var copyText = "<?php echo $url; ?>";
-                    navigator.clipboard.writeText(copyText);
-                    var tooltip = document.getElementById("myTooltip");
-                    tooltip.innerHTML = "Copié"
-                }
 
-                function outFunc() {
-                    var tooltip = document.getElementById("myTooltip");
-                    tooltip.innerHTML = "Lien copié";
-                }
-                </script>
+                
 
                 <!--Formulaire suivre -->
                 <?php 
@@ -100,7 +89,7 @@ $posts = $query->fetchALL(PDO::FETCH_ASSOC);
                         <?php }
                     else {?>
                         <button>Abonné</button>
-                    <?php } //pas } mais endif
+                    <?php } 
                 } // si c'est user lui meme alors affiche rien?>
                 </legend>
 
@@ -156,3 +145,15 @@ $posts = $query->fetchALL(PDO::FETCH_ASSOC);
     <br>
 <?php } ?>
 
+<script>
+function partager(url, postId) {
+    navigator.clipboard.writeText(url);
+    var tooltip = document.getElementById("myTooltip" + postId);
+    tooltip.innerHTML = "Copié";
+}
+
+function clique_partager(postId) {
+    var tooltip = document.getElementById("myTooltip" + postId);
+    tooltip.innerHTML = "Lien copié";
+}
+</script>
