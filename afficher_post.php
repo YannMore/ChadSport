@@ -18,9 +18,9 @@ if (isset($_SESSION['id_membre'])) {
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     require_once(__DIR__ . '/include/verif_connexion.php'); 
-    $Id_Post = filter_var($_POST['Id_Post'], FILTER_SANITIZE_STRING);
-    $content = filter_var($_POST['content'], FILTER_SANITIZE_STRING);
-    $comment = filter_var($_POST['comment'], FILTER_SANITIZE_STRING);
+    $Id_Post = htmlspecialchars($_POST['Id_Post'], ENT_QUOTES, 'UTF-8');
+    $content = htmlspecialchars($_POST['content'], ENT_QUOTES, 'UTF-8');
+    $comment = htmlspecialchars($_POST['comment'], ENT_QUOTES, 'UTF-8');
     if ($comment) {
         if (empty($content)) {
             $error = '<div class="erreur">Le texte de ton Commentaire est vide</div>';
@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
     if (!empty($_POST['suivre'])) {
-        $suivre = filter_var($_POST['suivre'], FILTER_SANITIZE_STRING);
+        $suivre = htmlspecialchars($_POST['suivre'], ENT_QUOTES, 'UTF-8');
         $query = $mysqlClient->prepare("INSERT IGNORE INTO est_abonne (Id_Membre, Id_Membre_1, date_ajout) VALUES (?, ?, NOW())");
         $query->execute([$_SESSION['id_membre'], $suivre]);
         header('Location: index.php');
