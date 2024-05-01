@@ -154,6 +154,7 @@ $informations = $query->fetch(PDO::FETCH_ASSOC);
         else {
             foreach ($abonnements as $abonnement) {
                 echo $abonnement['pseudo'];
+                echo '<br>';
                 $profilePic = 'images/profiles/'.$abonnement['Id_Membre_1'].'.'.$abonnement["image_profil"];
                 $defaultPic = 'images/profiles/defaut.png'; // Image par defaut si pas profil
 
@@ -165,6 +166,7 @@ $informations = $query->fetch(PDO::FETCH_ASSOC);
                     <input type="hidden" name="Id_Membre_1" value="<?php echo $abonnement['Id_Membre_1']; ?>">
                     <input type="submit" value="Ne plus suivre">
                 </form>
+                <br>
             <?php  }}?>
         
 
