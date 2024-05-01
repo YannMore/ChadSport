@@ -72,8 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 ?>
-<php echo $_SESSION['id_membre'] ; 
-?>
+
 <!DOCTYPE html>
 <head>
     <meta charset="UTF-8">
@@ -161,7 +160,7 @@ $informations = $query->fetch(PDO::FETCH_ASSOC);
                   if (!file_exists($profilePic)) {
                  $profilePic = $defaultPic;
                           }?>
-                <img class="comment-profile" src="<?php echo $profilePic; ?>" alt="photo de profil d'un commentaire"/>?>
+                <img class="comment-profile" src="<?php echo $profilePic; ?>" alt="photo de profil d'un commentaire"/>
                 <form method="POST">
                     <input type="hidden" name="Id_Membre_1" value="<?php echo $abonnement['Id_Membre_1']; ?>">
                     <input type="submit" value="Ne plus suivre">
