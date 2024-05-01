@@ -20,7 +20,7 @@
     background-size: cover;
     background-position: center;'> 
 </div>
-</header>
+
 
 
 
@@ -29,3 +29,4 @@
 
 
   <div class="header-img"><?php require_once(__DIR__ . '/afficher_image_profil.php');?> </div>
+  </header>
