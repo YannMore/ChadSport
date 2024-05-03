@@ -28,7 +28,7 @@
     padding: 0;
 }
 
-.no-link-style { /* Enlève le style de lien pour le titre principal */
+.no-link-style { /*retire les liens en bleu ou violet*/
     color: inherit; 
     text-decoration: inherit; 
 }
@@ -36,14 +36,14 @@
 .center {
     display: block;
     position: relative;
-    width: 50%; /* adjust as needed */
+    width: 50%;
     margin-left: auto;
     top:30px;
     margin-right: auto;
-    border: 1px solid #000; /* adjust as needed */
-    border-radius: 10px; /* adjust for rounded corners */
-    padding: 20px; /* space inside the border */
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* optional: add some shadow for a modern look */
+    border: 1px solid #000;
+    border-radius: 10px; 
+    padding: 20px; 
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);/* un peu au hasard les ombres mais c'est beau*/
 }
 
 header{
@@ -202,7 +202,7 @@ li {
 }
 
 
-/*v2*/
+
 body {
   font-family: Arial, sans-serif;
   margin: 0;
@@ -307,7 +307,7 @@ body {
   justify-content: center;
 }
 
-/*Responsivité*/
+/*Responsivité ...*/
 @media screen and (max-width: 600px) {
   .container {
       width: 100%;
@@ -631,6 +631,24 @@ input[type='email'],input[type='password']  {
 .register{
   text-align: center;
   padding: 15px;
+}
+@media screen and (max-width: 600px) {
+  .container {
+    width: 100%;
+  }
+
+  .post, .comment {
+    flex-direction: column;
+  }
+
+  .post-picture {
+    width: 100%;
+    border-radius: 10px 10px 0 0;
+  }
+
+  .comment {
+    width: 100%;
+  }
 }
 
 
