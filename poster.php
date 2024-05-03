@@ -39,6 +39,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
 ?>
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -47,22 +50,41 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link href="style.css" rel="stylesheet">
     <link rel="icon" href="./favicon.ico" type="image/ico">
     <title>Poster</title>
+    <script>
+        function validateForm() {
+            var imageInput = document.getElementById("image");
+            var contenuInput = document.getElementById("content");
+            if (imageInput.files.length === 0 or contenuInput.files.length === 0) {
+                return false;
+            }
+            return true;
+        }
+    </script>
 </head>
 
-
 <body>
-<?php require_once(__DIR__ . '/include/header.php'); ?>
-<?php if ($error): //On montre enfin les erreurs?>
-    <p><?php echo $error; ?></p>
-<?php endif; ?>
+    <?php require_once(__DIR__ . '/include/header.php'); ?>
+    <?php if ($error): ?>
+        <p><?php echo $error; ?></p>
+    <?php endif; ?>
 
-<form method="POST" enctype="multipart/form-data">
-  <label for="content">Content:</label><br>
-  <textarea id="content" name="content" maxlength="400"></textarea><br>
-  <label for="image">Image:</label><br>
-  <input type="file" id="image" name="image"><br><br>
-  <input type="submit" value="Submit">
-</form>
+    <h2 class="poster_titre">Partagez vos expériences, vos exercices sportifs, vos objectifs et votre évolution avec des milliers d'autres personnes.</h2><br>
+    <div class="div-post">
+    <form method="POST" enctype="multipart/form-data" onsubmit="return validateForm();">
+        <label for="content" class="label-post">Contenu de votre chadpost</label><br>
+        <textarea id="content" name="content" maxlength="400" required rows="10" cols="30" ></textarea><br>
+        <label for="image" class="label-post">Image</label><br>
+        <div class="image_post">
+        <input type="file" id="image" name="image" required><br><br><br><br>
+        </div>
+        <div class="submit-post">
+        <input  type="submit" value="Poster">
+        </div>
+    </form>
+    </div>
 
 </body>
+
 </html>
+<br><br><br><br><br><br><br>
+<?php require_once(__DIR__ . '/include/footer.php'); ?>

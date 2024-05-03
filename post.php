@@ -3,7 +3,7 @@ require_once(__DIR__ . '/include/fonctions.php');
 require_once(__DIR__ . '/include/db_config.php'); 
 
 //Recupere l'id du post demandé à etre affiché dans ce cas = commentaire_id_post (celui qui est commenté)
-$Id_Post = filter_var($_GET['post'], FILTER_SANITIZE_STRING);
+$Id_Post = filter_var($_GET['post'], FILTER_UNSAFE_RAW);
 
 
 //Partie commentaire
@@ -76,14 +76,17 @@ $pseudomembre = getPseudoById($post['Id_Membre'], $mysqlClient); ?>
 
 </html>
 <!--pas de foreach car un seul post-->
-    <fieldset>
-        <legend><?php echo $pseudomembre;?></legend>
+    <fieldset class="post">
+        <legend><p class="pseudonyme"><?php echo $pseudomembre;?></p></legend>
+        <div class="img_text">
         <img class="post-picture" src="<?php echo 'images/posts/'.$post['Id_Post'].'.'.$post['image_post'];?>" alt="image du post"/>
+        <h2 class="description_poste">Description du poste : </h2><br>
+        <p class="post-text"><?php echo $post['contenu']; ?></p>
+        </div>
 
     </fieldset>
 
-    <p class="post-text">
-    <?php echo $post['contenu']; ?>
+    
 
     <?php
     // Récupère les commentaires
@@ -93,6 +96,17 @@ $pseudomembre = getPseudoById($post['Id_Membre'], $mysqlClient); ?>
     $commentQuery->bindParam(':id_post', $post['Id_Post']);
     $commentQuery->execute();
     $comments = $commentQuery->fetchAll(PDO::FETCH_ASSOC);
+    ?>
+    <div class="all_comment">
+    <?php
+
+    if (count($comments) === 0) {
+        ?> <h2>*Aucun commentaire pour ce poste*</h2><br> <?php
+    }
+    
+    else{
+        ?> <h2>Commentaires liés à ce poste</h2> <?php
+    }
 
     foreach ($comments as $comment) { ?>
         <div class="comment">
@@ -110,20 +124,25 @@ $pseudomembre = getPseudoById($post['Id_Membre'], $mysqlClient); ?>
                       $profilePic = $defaultPic;
                                }?>
                      <img class="comment-profile" src="<?php echo $profilePic; ?>" alt="photo de profil d'un commentaire"/>
-                      <?php echo getPseudoById($comment['Id_Membre'], $mysqlClient);?>
-
-            <?php echo $comment['contenu_commentaire']; ?>
+                      <p class="pseudo_comment"><?php echo getPseudoById($comment['Id_Membre'], $mysqlClient);?></p>
+            
+            <p class="commentaire"><?php echo $comment['contenu_commentaire']; ?></p>
         </div>
-    <?php } ?>
-    
+    <?php } 
+    ?><br><br>
     <form method="POST" enctype="multipart/form-data">
-    <label for="content">Ajouter un commentaire:</label><br>
-    <textarea id="content" name="content" maxlength="200"></textarea><br>
+    <div class="add_comment"><label for="content"><h3>Ajouter un commentaire</h3></label></div><br>
+    <div class="textarea_comment"><textarea id="content" name="content" minlength="1" maxlength="200" cols = "40" rows="6"></textarea></div>
     <input type="hidden" name="comment" value="True"> 
     <input type="hidden" name="Id_Post" value="<?php echo $post['Id_Post']; ?>">
-    <input type="submit" value="Envoyer">
+    <div class="submit_comment"><input type="submit" value="Envoyer"></div>
     </form>
- 
+    </div>
+    <br>
+    <br>
+    
+    
+
 
 
     <?php require_once(__DIR__ . '/include/footer.php'); ?>

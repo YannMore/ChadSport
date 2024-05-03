@@ -48,13 +48,18 @@ $sports = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <body>
     <?php require_once(__DIR__ . '/include/header.php'); ?>
     <center>
-        <h2>Clique sur un sport pour l'ajouter à ton profil</h2>
-
+        <br><br>
+        <h2>Trouve ton sport dans la barre de recherche et clique dessus pour l'ajouter à ton profil.</h2>
+        <br><br>
         <!--Barre de recherche-->
-        <input type="text" id="search" placeholder="Cherche un sport...">
+        <div class="input-container">
+            <label class="animated-label">Je pratique...</label>
+            <input type="text" id="search">
+        </div>
 
         <div id="sports">
             <?php foreach ($sports as $sport): ?>
+                <div class="ajout_de_sport">
                 <form method="post" action="ajouter_sport.php" class="sport-form">
                     <input type="hidden" name="id_sport" value="<?php echo $sport['id_sport']; ?>">
                     <input type="hidden" name="id_membre" value="<?php echo $_SESSION['id_membre']; ?>"> 
@@ -62,6 +67,7 @@ $sports = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         <?php echo $sport['nom']; ?>
                     </button>
                 </form>
+                </div>
             <?php endforeach; ?>
         </div>
     </center>
@@ -84,6 +90,18 @@ $sports = $stmt->fetchAll(PDO::FETCH_ASSOC);
             }
         });
     });
+    document.querySelectorAll('input').forEach(function(input) {
+  input.addEventListener("focus", function() {
+    this.parentNode.classList.add("focus");
+  });
+
+  input.addEventListener("blur", function() {
+    if (!this.value.trim()) {
+      this.parentNode.classList.remove("focus");
+    }
+  });
+});
 </script>
+
 
 </body>

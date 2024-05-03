@@ -6,12 +6,15 @@ $query->execute();
 $quote = $query->fetch(PDO::FETCH_ASSOC);
 ?>
 
-<div style="width: 100%; height: 100px; overflow: auto;">
+<div style="width: 100%; height: 70px; overflow: auto; text-align:center;">
     <?php
     if (isset($_SESSION['id_membre'])) {
-        echo $quote['contenu'];
+        ?><h2 style="font-size: xx-large;
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        font-weight: bolder;
+        color: #2F3C7E;">Citation du jour</h2><hr><p style="margin:10px 0px 0px 0px;"><?php echo $quote['contenu']; ?></p><?php
     } else {
-        echo "Bienvenue, connectez vous pour pouvoir commenter et poster !";
+        echo "Bienvenue, connectez vous pour pouvoir commenter, poster et échanger avec nos millers de membres !";
     }
     ?>
 </div>

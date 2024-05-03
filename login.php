@@ -58,34 +58,52 @@ if (isset($postData['email']) &&  isset($postData['password'])) {
 }
 ?>
 
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="Documentation" content="">
+    <meta name="Keywords" content="sport">
+    <link href="style.css" rel="stylesheet">
+    <link rel="icon" href="./favicon.ico" type="image/ico">
+    <title>Register</title>
+</head>
+
+<body>
+    <?php require_once(__DIR__ . '/include/header.php'); ?>
 
 <!--Action Redirige vers la page précédente ou plutot celle passée en param-->
-<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?><?php echo isset($_GET['redirection']) ? '?redirection=' . $_GET['redirection'] : ''; ?>">
+<h2 class="login_titre">Veuillez renseigner les informations suivantes pour vous connecter à votre compte.</h2>
+<form class="form-login" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?><?php echo isset($_GET['redirection']) ? '?redirection=' . $_GET['redirection'] : ''; ?>">
     <!--Rajoute le token csrf-->
     <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
     <?php if(isset($error_message)) { ?>
         <p><?php echo $error_message; ?></p>
     <?php } ?>
 
-    <div class="mb-3">
-        <label for="email" class="form-labl">Email</label>   
-        <input type="email" class="form-control" id="email" name="email">
+    <div class="login-input">
+    <div class="input-container">
+        <label for="email" class="animated-label">Email</label>   
+        <input type="email" class="form-control" id="email" name="email" required>
         
     </div>
 
-    <div class="mb-3">
-        <label for="password" class="form-label">Mot de passe</label>
-        <input type="password" class="form-control" id="password" name="password">
+    <div class="input-container">
+        <label for="password" class="animated-label">Mot de passe</label>
+        <input type="password" class="form-control" id="password" name="password" required>
     </div>
 
+    <div class="login-submit">
     <button type="submit" class="bouton">Connexion</button>
+    </div>
+    </div>
 
 </form>
-<div class="register">
+<div class="login">
 <a href ='register.php'>Vous n'avez pas de compte ? Inscrivez-vous</a>
     </div>
         </main>
-
+        <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
         <?php require_once(__DIR__ . '/include/footer.php'); ?>
 
     </div>
@@ -98,5 +116,17 @@ if (isset($_POST['csrf_token']) && $_POST['csrf_token'] !== $_SESSION['csrf_toke
 }
 ?>
 
+<script>
+document.querySelectorAll('input').forEach(function(input) {
+  input.addEventListener("focus", function() {
+    this.parentNode.classList.add("focus");
+  });
 
+  input.addEventListener("blur", function() {
+    if (!this.value.trim()) {
+      this.parentNode.classList.remove("focus");
+    }
+  });
+});
+</script>
 </html>

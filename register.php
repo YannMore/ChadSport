@@ -67,31 +67,50 @@ if (isset($postData['email']) && isset($postData['password']) && isset($postData
 }
 ?>
 
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="Documentation" content="">
+    <meta name="Keywords" content="sport">
+    <link href="style.css" rel="stylesheet">
+    <link rel="icon" href="./favicon.ico" type="image/ico">
+    <title>Register</title>
+</head>
+
+<body>
+    <?php require_once(__DIR__ . '/include/header.php'); ?>
+
 <!-- token CSRF -->
-<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+
+<h2 class="register_titre">Veuillez renseigner les informations suivantes pour vous inscrire.</h2>
+<form class="form-register" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
     <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
     <?php if(isset($errorMessage)) { ?>
         <p><?php echo $errorMessage; ?></p>
     <?php } ?>
 
     <!--Formulaire-->
-    <div class="mb-3">
-        <label for="email" class="form-labl">Email</label>   
+    <div class="register-input">
+    <div class="input-container">
+        <label for="email" class="animated-label">Email</label>   
         <input type="email" class="form-control" id="email" name="email" required>
     </div>
 
-    <div class="mb-3">
-        <label for="password" class="form-label">Mot de passe</label>
+    <div class="input-container">
+        <label for="password" class="animated-label">Mot de passe</label>
         <input type="password" class="form-control" id="password" name="password" required>
     </div>
 
-    <div class="mb-3">
-        <label for="pseudo" class="form-label">Pseudo</label>
+    <div class="input-container">
+        <label for="pseudo" class="animated-label">Pseudo</label>
         <input type="text" class="form-control" id="pseudo" name="pseudo" required>
     </div>
 
-
+    <div class="register-submit">
     <button type="submit" class="bouton">Inscription</button>
+    </div>
+    </div>
 </form>
 
 </main>
@@ -102,6 +121,7 @@ if (isset($postData['email']) && isset($postData['password']) && isset($postData
 <div class ="register">
     <a href ='login.php'>Vous déjà avez un compte ? Connectez-vous</a>
 </div>
+<br><br><br><br><br><br><br><br><br><br>
 <?php require_once(__DIR__ . '/include/footer.php'); ?>
 </body>
 
@@ -111,5 +131,19 @@ if (isset($_POST['csrf_token']) && $_POST['csrf_token'] !== $_SESSION['csrf_toke
     die('CSRF INVALIDE');
 }
 ?>
+
+<script>
+document.querySelectorAll('input').forEach(function(input) {
+  input.addEventListener("focus", function() {
+    this.parentNode.classList.add("focus");
+  });
+
+  input.addEventListener("blur", function() {
+    if (!this.value.trim()) {
+      this.parentNode.classList.remove("focus");
+    }
+  });
+});
+</script>
 
 </html>

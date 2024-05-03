@@ -104,41 +104,45 @@ $informations = $query->fetch(PDO::FETCH_ASSOC);
 
 
     <center>
+        <br><br>
+        <h2 class="vos_informations">Vos informations</h2>
         <form method="POST" enctype="multipart/form-data">
-            <fieldset><legend>Mes informations</legend>
-            <div class="">
-                <label>Pseudo</label>
+            <fieldset class="fieldset-profil"><legend>Informations personnelles</legend>
+            <div class="input-container">
+                <label class="animated-label" >Pseudo</label>
                 <input type="text" class="form-profil" name="Pseudo" size="30" maxlength="30" value="<?php echo $informations['pseudo'] ?>" required="true">
             </div>
-            <div class="">
-            <label for="image">Photo de profil:</label><br>
+            <div class="input-file">
+            <label class="label-file" for="image">Photo de profil:</label><br>
             <input type="file" id="image_pic" name="image_pic"><br>
             </div>
-            <div class="">
-            <label for="image">Bannière du profil:</label><br>
+            <div class="input-file">
+            <label class="label-file" for="image">Bannière de profil:</label><br>
             <input type="file"  name="image_banner"><br>
-            </div></fieldset><fieldset><legend>Informations sportives</legend>
-            <div class="">
-                <label>Mon nombre de pas du jour</label>
+            </div></fieldset><fieldset class="fieldset-profil"><legend>Informations sportives</legend>
+            <div class="input-container">
+                <label class="animated-label">Mon nombre de pas du jour</label>
                 <input type="number" class="form-profil" name="nombre_pas" size="10"  max="10000000" value="<?php echo $informations['nombre_pas'] ?>" required="true">
             </div>
-            <div class="">
-                <label>Poid</label>
+            <div class="input-container">
+                <label class="animated-label">Poids</label>
                 <input type="number" class="form-profil" name="poid" size="10" min="1" max="500" value="<?php echo $informations['poid'] ?>" required="true">
             </div>
-            <div class="">
-                <label>Taille (cm)</label>
+            <div class="input-container">
+                <label class="animated-label">Taille (cm)</label>
                 <input type="number" class="form-profil" name="taille" size="10" max="500" value="<?php echo $informations['taille'] ?>"required="true">
             </div></fieldset>
             <button type="submit" class="form-submit">Mettre à jour</button>
         </form>
         <br>
         <br>
+        <hr>
+        <br>
         <br>
 
-
+        
+    <h2 class="vos_abonnements">Vos abonnements</h2>
     <div class="amis">
-        <h2 class="vos_abonnements"> Vos abonnements</h2>
         <?php 
 
         $sqlQuery = "SELECT membre.Id_Membre, membre.pseudo, membre.image_profil, est_abonne.Id_Membre_1
@@ -160,26 +164,32 @@ $informations = $query->fetch(PDO::FETCH_ASSOC);
         }
         else {
             foreach ($abonnements as $abonnement) {
-                echo $abonnement['pseudo'];
-                echo '<br>';
                 $profilePic = 'images/profiles/'.$abonnement['Id_Membre_1'].'.'.$abonnement["image_profil"];
                 $defaultPic = 'images/profiles/defaut.png'; // Image par defaut si pas profil
 
                   if (!file_exists($profilePic)) {
                  $profilePic = $defaultPic;
                           }?>
+                <div class='liste_amis'>
+                <p class="enonce"><?php echo $abonnement['pseudo']; ?></p>
                 <img class="comment-profile" src="<?php echo $profilePic; ?>" alt="photo de profil d'un commentaire"/>
                 <form method="POST">
                     <input type="hidden" name="Id_Membre_1" value="<?php echo $abonnement['Id_Membre_1']; ?>">
                     <input type="submit" value="Ne plus suivre">
                 </form>
                 <br>
+                </div>
             <?php  }}?>
+            
         
     </div>    
     <br>
     <br>
-    <h2>Vos sports :</h2>
+    <hr>
+    <br>
+    <br>
+    <h2 class="vos_sports">Vos sports</h2>
+    <div class='sports'>
     <?php 
 
         $sqlQuery = "SELECT sport.nom, sport.id_sport
@@ -195,26 +205,40 @@ $informations = $query->fetch(PDO::FETCH_ASSOC);
         if (empty($sports)) {
             echo "<div class='pas_sport'>Oups! Il semble que vous ne pratiquez aucun sport. 
                 Cela ne plait pas à Chadsport. Rajoutez des sports à votre profil.
-                <img src='images/site/no_sport.png' />
                 </div>";
         }
         else {
             foreach ($sports as $sport) {
-                echo $sport['nom'];
                 ?>
+                <div class='liste_sports'>
+                <p class="enonce"><?php echo $sport['nom']; ?></p>
                 <form method="POST">
                     <input type="hidden" name="id_sport" value="<?php echo $sport['id_sport']; ?>">
                     <input type="submit" value="Je ne pratique plus">
                 </form>
                 <br>
+                </div>
             <?php  }
         }?>
 
-    <a href='ajouter_sport.php'><h2>Rajouter des sports</h2></a>
+    </div><br>
+    <a class="ajout_sport" href='ajouter_sport.php'><h2>Rajouter des sports</h2></a>
     <br>
     </center>
 
     <?php require_once(__DIR__ . '/include/footer.php'); ?>
 
+    <script>
+document.querySelectorAll('input').forEach(function(input) {
+  input.addEventListener("focus", function() {
+    this.parentNode.classList.add("focus");
+  });
 
+  input.addEventListener("blur", function() {
+    if (!this.value.trim()) {
+      this.parentNode.classList.remove("focus");
+    }
+  });
+});
+</script>
 </html>
