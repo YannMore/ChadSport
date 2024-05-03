@@ -224,6 +224,7 @@ body {
 }
 
 
+
 .all_comment{
   display: flex;
   align-items: center;
@@ -316,7 +317,15 @@ body {
   .post, .comment {
       flex-direction: column;
   }
+  header {
+    flex-direction: row;
+    height: 200px;
+  }
 
+
+  input[type='text'],input[type='number']  {
+    width: 100px;
+  }
   .post-picture {
       width: 100%;
       border-radius: 10px 10px 0 0;
@@ -400,7 +409,7 @@ input[type='file']{
 }
 
 input[type='text'],input[type='number']  {
-  width: 400px;
+  width: 80%;
   padding: 30px 0px 10px 10px;
   font-size: 20px;
   border: 2px solid #385170;
@@ -410,6 +419,16 @@ input[type='text'],input[type='number']  {
 
 }
 
+.amis {
+  width : 80%;
+}
+
+.pas_dabo {
+  width : 80%;
+}
+.pas_dabo img {
+  width : 100%;
+}
 .animated-label {
   position: absolute;
   padding-left: 10px;
