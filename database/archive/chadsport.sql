@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : ven. 03 mai 2024 à 17:19
+-- Généré le : ven. 03 mai 2024 à 16:31
 -- Version du serveur : 10.4.32-MariaDB
--- Version de PHP : 8.0.30
+-- Version de PHP : 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -294,7 +294,7 @@ INSERT INTO `membre` (`Id_Membre`, `email`, `mot_de_passe`, `pseudo`, `administr
 (66, 'kevin_mitnick@protonmail.com', 'K3v!nK@rn@g3#', 'KevinMitnick', 0, '.jpg', 'b_.jpg', 0),
 (67, 'ada_lovelace@protonmail.com', '@d@L0v3l@c3#', 'AdaLovelace', 0, '.jpg', 'b_.jpg', 0),
 (68, 'richard_stallman@protonmail.com', 'Fr33$0ftw@r3#', 'RichardStallman', 0, '.jpg', 'b_.jpg', 0),
-(69, 'Steve_apple_jobs@apple.com', '4ppL3!Ph0n3#', 'SteveJobs', 0, 'jpg', 'b_.jpg', 0),
+(69, 'steve_jobs@protonmail.com', '4ppL3!Ph0n3#', 'SteveJobs', 0, 'png', 'b_.jpg', 0),
 (70, 'elon_musk@protonmail.com', 'Sp@c3X2024#', 'ElonMusk', 0, '.jpg', 'b_.jpg', 0),
 (71, 'adafruit_lady@protonmail.com', '@d@fru!tL@d3#', 'AdafruitLady', 0, '.jpg', 'b_.jpg', 0),
 (72, 'tim_berners_lee@protonmail.com', 'W3bW0rldW!d3#', 'TimBernersLee', 0, '.jpg', 'b_.jpg', 0),
