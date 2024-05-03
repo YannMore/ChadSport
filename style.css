@@ -122,7 +122,7 @@ li {
 .post-picture{
   width: 50%;
   height: auto;
-  max-width: 500px;
+  max-width: 50%;
   float:left;
   margin:0px 20px 5px 0px;
   border-radius: 5px;
@@ -133,7 +133,7 @@ li {
 }
 
 .img_text{
-  max-width: 800px;
+  max-width: 100%;
   margin:0 auto;
   padding:30px;
   border-radius: 10px;
@@ -225,6 +225,13 @@ body {
 
 
 .all_comment{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.ajouter_comment{
   display: flex;
   align-items: center;
   justify-content: center;
