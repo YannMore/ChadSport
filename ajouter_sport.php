@@ -76,7 +76,7 @@ $sports = $stmt->fetchAll(PDO::FETCH_ASSOC);
     var input = document.getElementById('search');
     var sports = document.querySelectorAll('.sport-form');
 
-    //event listener javascript
+    // s'active lorsque cela se passe
     input.addEventListener('keyup', function() {
         var filter = input.value.toUpperCase();
 
