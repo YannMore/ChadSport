@@ -11,7 +11,7 @@ session_start();
 ?>
 
 <?php 
-// Génère le CSRF token
+// generation du token csrf
 if (empty($_SESSION['csrf_token'])) {
     $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
 }
@@ -125,7 +125,7 @@ if (isset($postData['email']) && isset($postData['password']) && isset($postData
 <?php require_once(__DIR__ . '/include/footer.php'); ?>
 </body>
 
-<!-- Vérifie le CSRF token -->
+<!-- verifie le token csrf pour securité renforcee -->
 <?php
 if (isset($_POST['csrf_token']) && $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
     die('CSRF INVALIDE');
