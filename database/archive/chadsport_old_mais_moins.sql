@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : ven. 03 mai 2024 à 16:10
+-- Généré le : ven. 03 mai 2024 à 12:22
 -- Version du serveur : 10.4.32-MariaDB
--- Version de PHP : 8.2.12
+-- Version de PHP : 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -113,26 +113,6 @@ CREATE TABLE `commentaire` (
   `Id_Membre` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Déchargement des données de la table `commentaire`
---
-
-INSERT INTO `commentaire` (`Id_Commentaire`, `date_commentaire`, `contenu_commentaire`, `Id_Post`, `Id_Membre`) VALUES
-(37, '2024-05-03 15:44:21', 'stay sharp', 13, 2),
-(38, '2024-05-03 15:48:28', 'lol lol lol', 14, 1),
-(39, '2024-05-03 15:50:52', 'mdr ton humour me transcende ', 14, 3),
-(40, '2024-05-03 15:53:08', 'attention aux voitures !!!!', 13, 4),
-(41, '2024-05-03 15:55:03', 'haha, j&#039;adore rire !', 14, 5),
-(42, '2024-05-03 15:56:45', 'trop mignons, des bises', 16, 6),
-(43, '2024-05-03 15:58:11', 'motivation vibe', 13, 7),
-(44, '2024-05-03 15:59:45', 'je n&#039;aime pas les gens', 17, 8),
-(45, '2024-05-03 16:01:15', 'hihihi', 17, 9),
-(46, '2024-05-03 16:02:14', 'slay queen', 21, 10),
-(47, '2024-05-03 16:03:27', 'pas vraiment lol', 22, 11),
-(48, '2024-05-03 16:05:15', 'first', 20, 12),
-(49, '2024-05-03 16:07:44', 'très drôle', 17, 14),
-(50, '2024-05-03 16:08:00', 'jolie photo', 25, 14);
-
 -- --------------------------------------------------------
 
 --
@@ -144,26 +124,6 @@ CREATE TABLE `est_abonne` (
   `Id_Membre_1` int(11) NOT NULL,
   `date_ajout` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Déchargement des données de la table `est_abonne`
---
-
-INSERT INTO `est_abonne` (`Id_Membre`, `Id_Membre_1`, `date_ajout`) VALUES
-(1, 2, '2024-05-03'),
-(2, 1, '2024-05-03'),
-(3, 2, '2024-05-03'),
-(4, 1, '2024-05-03'),
-(5, 2, '2024-05-03'),
-(6, 4, '2024-05-03'),
-(7, 1, '2024-05-03'),
-(8, 5, '2024-05-03'),
-(9, 5, '2024-05-03'),
-(10, 9, '2024-05-03'),
-(11, 10, '2024-05-03'),
-(12, 8, '2024-05-03'),
-(14, 5, '2024-05-03'),
-(14, 13, '2024-05-03');
 
 -- --------------------------------------------------------
 
@@ -187,13 +147,13 @@ CREATE TABLE `membre` (
 --
 
 INSERT INTO `membre` (`Id_Membre`, `email`, `mot_de_passe`, `pseudo`, `administrateur`, `image_profil`, `banniere_profil`, `banni`) VALUES
-(1, 'arnold.arnoldo@gmail.com', 'Bonjour123', 'GrosBicepsGuy', 0, 'jpg', 'b_.jpg', 0),
-(2, 'sprinter.suzie@gmail.com', 'Soleil456', 'SpeedySuzie', 0, 'jpeg', 'b_.jpg', 0),
+(1, 'arnold.arnoldo@gmail.com', 'Bonjour123', 'GrosBicepsGuy', 0, '.jpg', 'b_.jpg', 0),
+(2, 'sprinter.suzie@gmail.com', 'Soleil456', 'SpeedySuzie', 0, '.jpg', 'b_.jpg', 0),
 (3, 'cardio.charles@gmail.com', 'Chaton789', 'CardioChuck', 0, '.jpg', 'b_.jpg', 0),
 (4, 'fit.francois@gmail.com', 'Pomme1234', 'FitFranFran', 0, '.jpg', 'b_.jpg', 0),
 (5, 'sweaty.sam@gmail.com', 'Sourire567', 'SweatySam', 0, '.jpg', 'b_.jpg', 0),
 (6, 'gym.gaston@gmail.com', 'gymcbim', 'GymGaston', 0, '.jpg', 'b_.jpg', 0),
-(7, 'soccer.simone@gmail.com', 'Amour12345', 'SoccerSimone', 0, 'jpg', 'b_.jpg', 0),
+(7, 'soccer.simone@gmail.com', 'Amour12345', 'SoccerSimone', 0, '.jpg', 'b_.jpg', 0),
 (8, 'lifting.leo@gmail.com', 'Bonheur6789', 'LiftingLeo', 0, '.jpg', 'b_.jpg', 0),
 (9, 'runner.rachel@gmail.com', 'Arcenciel123', 'RunnerRachel', 0, '.jpg', 'b_.jpg', 0),
 (10, 'mountain.man@gmail.com', 'Bisou45678', 'MountainMan', 0, '.jpg', 'b_.jpg', 0),
@@ -302,27 +262,6 @@ CREATE TABLE `post` (
   `Id_Membre` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Déchargement des données de la table `post`
---
-
-INSERT INTO `post` (`Id_Post`, `contenu`, `image_post`, `date_post`, `Id_Membre`) VALUES
-(13, 'Quand même les muscles ont besoin d&#39;un coup de pouce pour les lacets ! 💪👟 #ToutEstQuestionDePrécision', 'png', '2024-05-03 15:40:56', 1),
-(14, 'Quand tu prends le sport très au sérieux... mais que le sport te prend encore plus au sérieux !', 'png', '2024-05-03 15:45:34', 2),
-(15, 'Entraînement Paris 2024 #MarathonPourTous', 'png', '2024-05-03 15:50:22', 3),
-(16, 'Le sport nous a permis de nous rencontrer', 'png', '2024-05-03 15:52:22', 4),
-(17, 'Quand on me dit que le sport ça rend aimable', 'png', '2024-05-03 15:54:38', 5),
-(18, 'J’ai fait plus de tour de France à vélo que de tour de cuisine à pied', 'png', '2024-05-03 15:56:27', 6),
-(19, 'Je vais prouver à la terre entière que chaque rêve est atteignable', 'png', '2024-05-03 15:57:56', 7),
-(20, 'Mes pensées lorsque je regarde des abrutis courir sans aucun intérêt', 'png', '2024-05-03 15:59:26', 8),
-(21, 'Nouvelle coupe de cheveux vous en pensez quoi ?', 'png', '2024-05-03 16:00:54', 9),
-(22, 'Le sport m’a rendu éternelle', 'png', '2024-05-03 16:02:03', 10),
-(23, 'J’ai réalisé plus de choses dans ma vie grâce à mon handicap que sans ', 'png', '2024-05-03 16:03:14', 11),
-(24, 'Prêt pour faire un groupe de musique', 'png', '2024-05-03 16:04:51', 12),
-(25, 'Quelle grâce dans mes mouvements ', 'png', '2024-05-03 16:06:06', 13),
-(26, 'Les gars, le bar est ouvert', 'png', '2024-05-03 16:07:25', 14),
-(27, 'Seul on va plus vite, à deux on va plus loin', 'png', '2024-05-03 16:08:41', 15);
-
 -- --------------------------------------------------------
 
 --
@@ -340,14 +279,12 @@ CREATE TABLE `pratique` (
 
 INSERT INTO `pratique` (`Id_Membre`, `id_sport`) VALUES
 (1, '1'),
-(1, '155'),
 (2, '2'),
 (3, '3'),
 (4, '4'),
 (5, '5'),
 (6, '6'),
 (7, '7'),
-(8, '102'),
 (8, '8'),
 (9, '9'),
 (10, '10'),
@@ -953,7 +890,7 @@ ALTER TABLE `annonce`
 -- AUTO_INCREMENT pour la table `commentaire`
 --
 ALTER TABLE `commentaire`
-  MODIFY `Id_Commentaire` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+  MODIFY `Id_Commentaire` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT pour la table `membre`
@@ -965,7 +902,7 @@ ALTER TABLE `membre`
 -- AUTO_INCREMENT pour la table `post`
 --
 ALTER TABLE `post`
-  MODIFY `Id_Post` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `Id_Post` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT pour la table `statistique`
