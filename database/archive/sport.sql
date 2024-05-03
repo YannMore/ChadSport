@@ -27,10 +27,7 @@ SET time_zone = "+00:00";
 -- Structure de la table `sport`
 --
 
-CREATE TABLE `sport` (
-  `id_sport` varchar(50) NOT NULL,
-  `nom` varchar(50) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 
 --
 -- Déchargement des données de la table `sport`
