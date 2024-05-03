@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : ven. 03 mai 2024 à 16:31
+-- Généré le : ven. 03 mai 2024 à 16:10
 -- Version du serveur : 10.4.32-MariaDB
 -- Version de PHP : 8.2.12
 
@@ -131,34 +131,7 @@ INSERT INTO `commentaire` (`Id_Commentaire`, `date_commentaire`, `contenu_commen
 (47, '2024-05-03 16:03:27', 'pas vraiment lol', 22, 11),
 (48, '2024-05-03 16:05:15', 'first', 20, 12),
 (49, '2024-05-03 16:07:44', 'très drôle', 17, 14),
-(50, '2024-05-03 16:08:00', 'jolie photo', 25, 14),
-(51, '2024-05-03 16:16:10', 'quel talent', 25, 63),
-(52, '2024-05-03 16:16:20', 'j&#039;arrive ptdr', 26, 63),
-(53, '2024-05-03 16:18:52', 'inspirant', 27, 42),
-(54, '2024-05-03 16:20:39', '#entraide#couplegoal', 27, 41),
-(55, '2024-05-03 16:20:58', 'un bar sans alcool', 26, 41),
-(56, '2024-05-03 16:21:07', 'respect', 22, 41),
-(57, '2024-05-03 16:21:31', 'c&#039;est où ?', 19, 41),
-(58, '2024-05-03 16:22:35', 'si beau', 27, 50),
-(59, '2024-05-03 16:22:54', 'j&#039;arriveeee !!!', 24, 50),
-(60, '2024-05-03 16:23:20', 'keep it real', 23, 50),
-(61, '2024-05-03 16:23:37', 'quel courage', 18, 50),
-(62, '2024-05-03 16:24:25', 'un homme un vrai', 18, 56),
-(63, '2024-05-03 16:24:39', 'second', 20, 56),
-(64, '2024-05-03 16:24:50', 'oulala ma chérie', 21, 56),
-(65, '2024-05-03 16:25:24', 'j&#039;adore', 23, 56),
-(66, '2024-05-03 16:25:54', 'je joue du violon électrique', 24, 56),
-(67, '2024-05-03 16:26:13', 'gaben, donne moi ta force', 25, 56),
-(68, '2024-05-03 16:27:20', 'je t&#039;achète', 27, 69),
-(69, '2024-05-03 16:27:31', 'je t&#039;achète aussi', 25, 69),
-(70, '2024-05-03 16:27:49', 'je vous achète', 24, 69),
-(71, '2024-05-03 16:28:14', 'veux tu un I-leg pro max ?', 23, 69),
-(72, '2024-05-03 16:28:38', 'besoin d&#039;un I-coffin ?', 22, 69),
-(73, '2024-05-03 16:28:52', 'je l&#039;ai déjà', 20, 69),
-(74, '2024-05-03 16:29:46', 'ça décoiffe', 21, 88),
-(75, '2024-05-03 16:30:10', 'ma dose de survie', 26, 88),
-(76, '2024-05-03 16:30:45', 'la mélancolie me gagne', 19, 88),
-(77, '2024-05-03 16:30:57', 'coucou, encore là ?', 18, 88);
+(50, '2024-05-03 16:08:00', 'jolie photo', 25, 14);
 
 -- --------------------------------------------------------
 
@@ -190,19 +163,7 @@ INSERT INTO `est_abonne` (`Id_Membre`, `Id_Membre_1`, `date_ajout`) VALUES
 (11, 10, '2024-05-03'),
 (12, 8, '2024-05-03'),
 (14, 5, '2024-05-03'),
-(14, 13, '2024-05-03'),
-(41, 7, '2024-05-03'),
-(41, 10, '2024-05-03'),
-(42, 15, '2024-05-03'),
-(50, 6, '2024-05-03'),
-(50, 15, '2024-05-03'),
-(56, 6, '2024-05-03'),
-(56, 9, '2024-05-03'),
-(56, 12, '2024-05-03'),
-(56, 13, '2024-05-03'),
-(63, 11, '2024-05-03'),
-(63, 13, '2024-05-03'),
-(63, 14, '2024-05-03');
+(14, 13, '2024-05-03');
 
 -- --------------------------------------------------------
 
@@ -288,13 +249,13 @@ INSERT INTO `membre` (`Id_Membre`, `email`, `mot_de_passe`, `pseudo`, `administr
 (60, 'claudette.cochonne@laposte.net', 'claudette', 'Claudette', 0, '.jpg', 'b_.jpg', 0),
 (61, 'yvette.yoyotte@laposte.net', 'yvette', 'Yvette', 0, '.jpg', 'b_.jpg', 0),
 (62, 'adèle.agée@laposte.net', 'adèle', 'Adèle', 0, '.jpg', 'b_.jpg', 0),
-(63, 'gabe_newell@protonmail.com', 'H@lfL!f3$*c!ou$', 'GabeNewell', 0, 'png', 'b_.jpg', 0),
+(63, 'gabe_newell@protonmail.com', 'H@lfL!f3$*c!ou$', 'GabeNewell', 0, '.jpg', 'b_.jpg', 0),
 (64, 'edward_snowden@protonmail.com', '@n0th3rSecr3t#', 'EdwardSnowden', 0, '.jpg', 'b_.jpg', 0),
 (65, 'linus_torvalds@protonmail.com', 'L!nusR0ck$#', 'LinusTorvalds', 0, '.jpg', 'b_.jpg', 0),
 (66, 'kevin_mitnick@protonmail.com', 'K3v!nK@rn@g3#', 'KevinMitnick', 0, '.jpg', 'b_.jpg', 0),
 (67, 'ada_lovelace@protonmail.com', '@d@L0v3l@c3#', 'AdaLovelace', 0, '.jpg', 'b_.jpg', 0),
 (68, 'richard_stallman@protonmail.com', 'Fr33$0ftw@r3#', 'RichardStallman', 0, '.jpg', 'b_.jpg', 0),
-(69, 'steve_jobs@protonmail.com', '4ppL3!Ph0n3#', 'SteveJobs', 0, 'png', 'b_.jpg', 0),
+(69, 'steve_jobs@protonmail.com', '4ppL3!Ph0n3#', 'SteveJobs', 0, '.jpg', 'b_.jpg', 0),
 (70, 'elon_musk@protonmail.com', 'Sp@c3X2024#', 'ElonMusk', 0, '.jpg', 'b_.jpg', 0),
 (71, 'adafruit_lady@protonmail.com', '@d@fru!tL@d3#', 'AdafruitLady', 0, '.jpg', 'b_.jpg', 0),
 (72, 'tim_berners_lee@protonmail.com', 'W3bW0rldW!d3#', 'TimBernersLee', 0, '.jpg', 'b_.jpg', 0),
@@ -992,7 +953,7 @@ ALTER TABLE `annonce`
 -- AUTO_INCREMENT pour la table `commentaire`
 --
 ALTER TABLE `commentaire`
-  MODIFY `Id_Commentaire` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78;
+  MODIFY `Id_Commentaire` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
 -- AUTO_INCREMENT pour la table `membre`
